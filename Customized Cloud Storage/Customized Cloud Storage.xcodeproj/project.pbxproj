@@ -193,6 +193,7 @@
 				TargetAttributes = {
 					7AEC16681EE699C500614253 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 35ULF4CXKF;
 						ProvisioningStyle = Automatic;
 					};
 					7AEC167C1EE699C500614253 = {
@@ -355,7 +356,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -399,7 +400,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -412,6 +413,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 35ULF4CXKF;
 				INFOPLIST_FILE = "Customized Cloud Storage/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "MingE.Customized-Cloud-Storage";
@@ -424,6 +426,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 35ULF4CXKF;
 				INFOPLIST_FILE = "Customized Cloud Storage/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "MingE.Customized-Cloud-Storage";
@@ -505,6 +508,7 @@
 				7AEC16931EE699C500614253 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7AEC16941EE699C500614253 /* Build configuration list for PBXNativeTarget "Customized Cloud StorageTests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +517,7 @@
 				7AEC16961EE699C500614253 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7AEC16971EE699C500614253 /* Build configuration list for PBXNativeTarget "Customized Cloud StorageUITests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +526,7 @@
 				7AEC16991EE699C500614253 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
