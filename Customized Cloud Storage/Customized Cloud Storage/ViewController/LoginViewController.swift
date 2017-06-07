@@ -11,10 +11,9 @@ import UIKit
 class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var passwordStackView: UIStackView!
-    @IBOutlet weak var registView: UIView!
     @IBOutlet weak var registButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var inputErrorMessageLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +28,8 @@ class LoginViewController: UIViewController {
         passwordTextField.keyboardType = .emailAddress
         passwordTextField.returnKeyType = .go
         
-        //set subview
-        passwordStackView.addSubview(registView)
-        //registView.isUserInteractionEnabled = true
+        //set input error message
+        inputErrorMessageLabel.isHidden = true
         
         //set regist button
         registButton.addTarget(self, action: #selector(regist), for: .touchUpInside)
@@ -42,6 +40,22 @@ class LoginViewController: UIViewController {
     }
     
     func login(){
+        //check email not empty
+        guard let email = emailTextField.text, email.characters.count > 0 else {
+            inputErrorMessageLabel.isHidden = false
+            inputErrorMessageLabel.text = "請輸入帳號"
+            
+            return
+        }
+        
+        //check password not empty
+        guard let password = passwordTextField.text, password.characters.count > 0 else {
+            inputErrorMessageLabel.isHidden = false
+            inputErrorMessageLabel.text = "請輸入密碼"
+            return
+        }
+        
+        inputErrorMessageLabel.isHidden = true
         print("login")
     }
     
