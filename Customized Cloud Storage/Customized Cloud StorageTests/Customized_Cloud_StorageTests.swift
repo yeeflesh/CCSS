@@ -9,21 +9,41 @@
 import XCTest
 @testable import Customized_Cloud_Storage
 
-class Customized_Cloud_StorageTests: XCTestCase {
+class UserTests: XCTestCase {
+    var user: User? = nil
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        let email = "test@gmail.com"
+        let password = "test"
+        user = User(email: email, password: password)
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        //clean object
+        user = nil
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func test_login_success() {
+        //XCTAssert(false)
+        user?.login(){loginStatus in
+            XCTAssert(true == loginStatus)
+            XCTAssert("592d0fba71957372bb51db62" == self.user?.id)
+            XCTAssert("test" == self.user?.name)
+        }
+    }
+    
+    func test_login_fail() {
+        //XCTAssert(false)
+        user?.password = "login_fail"
+        
+        user?.login(){loginStatus in
+            XCTAssert(false == loginStatus)
+            XCTAssert(nil == self.user?.id.description)
+            XCTAssert(nil == self.user?.name.description)
+        }
+        
     }
     
     func testPerformanceExample() {

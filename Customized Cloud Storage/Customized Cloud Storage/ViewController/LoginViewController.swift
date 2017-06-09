@@ -37,30 +37,53 @@ class LoginViewController: UIViewController {
         //set login button
         loginButton.layer.cornerRadius = 5
         loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
+        
+        //hard code account(email, password) in login
+        emailTextField.text = "test@gmail.com"
+        passwordTextField.text = "test"
     }
     
-    func login(){
+    internal func login(){
         //check email not empty
-        guard let email = emailTextField.text, email.characters.count > 0 else {
+        guard let email = emailTextField.text, !email.isEmpty else {
             inputErrorMessageLabel.isHidden = false
             inputErrorMessageLabel.text = "請輸入帳號"
-            
+            return
+        }
+        
+        //check email format legal
+        guard isValidEmail(testEmail: email) else {
+            inputErrorMessageLabel.isHidden = false
+            inputErrorMessageLabel.text = "Email格式不正確 \n參照:example@organization.com"
             return
         }
         
         //check password not empty
-        guard let password = passwordTextField.text, password.characters.count > 0 else {
+        guard let password = passwordTextField.text, !password.isEmpty else {
             inputErrorMessageLabel.isHidden = false
             inputErrorMessageLabel.text = "請輸入密碼"
             return
         }
         
         inputErrorMessageLabel.isHidden = true
-        print("login")
+        //print("login")
+        let user = User(email: email, password: password)
+        
+        user.login(){loginStauts in
+            print("UI login status: \(loginStauts)")
+        }
+        
     }
     
-    func regist(){
-        print("regist")
+    internal func regist(){
+        //print("regist")
+    }
+    
+    private func isValidEmail(testEmail: String) -> Bool {
+        let emailRegularExpresion = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailChecker = NSPredicate(format:"SELF MATCHES %@", emailRegularExpresion)
+        return emailChecker.evaluate(with: testEmail)
     }
 
     override func didReceiveMemoryWarning() {
