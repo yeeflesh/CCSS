@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A175EC11EEC16AC00F4D8F3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3DB86E1EE8485400763AF9 /* User.swift */; };
+		7A175EC21EEC16AD00F4D8F3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3DB86E1EE8485400763AF9 /* User.swift */; };
+		7A175EC41EEC29E100F4D8F3 /* ExtensionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A175EC31EEC29E000F4D8F3 /* ExtensionTextField.swift */; };
+		7A175EC61EEC35EA00F4D8F3 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A175EC51EEC35EA00F4D8F3 /* RegisterViewController.swift */; };
+		7A175EC71EEC35EA00F4D8F3 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A175EC51EEC35EA00F4D8F3 /* RegisterViewController.swift */; };
 		7A3DB86F1EE8485400763AF9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3DB86E1EE8485400763AF9 /* User.swift */; };
 		7A3DB8741EE87FB700763AF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC16701EE699C500614253 /* Main.storyboard */; };
 		7A3DB8761EE87FEE00763AF9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3DB8751EE87FEE00763AF9 /* LoginViewController.swift */; };
@@ -35,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A175EC31EEC29E000F4D8F3 /* ExtensionTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionTextField.swift; path = Models/ExtensionTextField.swift; sourceTree = "<group>"; };
+		7A175EC51EEC35EA00F4D8F3 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterViewController.swift; path = ViewController/RegisterViewController.swift; sourceTree = "<group>"; };
 		7A3DB86E1EE8485400763AF9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/User.swift; sourceTree = "<group>"; };
 		7A3DB8751EE87FEE00763AF9 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = ViewController/LoginViewController.swift; sourceTree = "<group>"; };
 		7AEC16691EE699C500614253 /* Customized Cloud Storage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Customized Cloud Storage.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				7A3DB86E1EE8485400763AF9 /* User.swift */,
+				7A175EC31EEC29E000F4D8F3 /* ExtensionTextField.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -88,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				7A3DB8751EE87FEE00763AF9 /* LoginViewController.swift */,
+				7A175EC51EEC35EA00F4D8F3 /* RegisterViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -280,6 +289,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A3DB8761EE87FEE00763AF9 /* LoginViewController.swift in Sources */,
+				7A175EC61EEC35EA00F4D8F3 /* RegisterViewController.swift in Sources */,
+				7A175EC41EEC29E100F4D8F3 /* ExtensionTextField.swift in Sources */,
 				7A3DB86F1EE8485400763AF9 /* User.swift in Sources */,
 				7AEC166D1EE699C500614253 /* AppDelegate.swift in Sources */,
 			);
@@ -289,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A175EC11EEC16AC00F4D8F3 /* User.swift in Sources */,
 				7AEC16821EE699C500614253 /* Customized_Cloud_StorageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,6 +309,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A175EC71EEC35EA00F4D8F3 /* RegisterViewController.swift in Sources */,
+				7A175EC21EEC16AD00F4D8F3 /* User.swift in Sources */,
 				7AEC168D1EE699C500614253 /* Customized_Cloud_StorageUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
