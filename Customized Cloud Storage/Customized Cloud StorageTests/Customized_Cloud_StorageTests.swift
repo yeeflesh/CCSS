@@ -27,7 +27,7 @@ class UserTests: XCTestCase {
     
     func test_login_success() {
         //XCTAssert(false)
-        user?.login(){loginStatus in
+        user?.login(){ loginStatus in
             XCTAssert(true == loginStatus)
             XCTAssert("592d0fba71957372bb51db62" == self.user?.id)
             XCTAssert("test" == self.user?.name)
@@ -36,9 +36,12 @@ class UserTests: XCTestCase {
     
     func test_login_fail() {
         //XCTAssert(false)
-        user?.password = "login_fail"
         
-        user?.login(){loginStatus in
+        //set wrong password
+        user?.password = "login_fail"
+
+        user?.login(){ loginStatus in
+            //print("login_fail_loginStatus: \(loginStatus.description)")
             XCTAssert(false == loginStatus)
             XCTAssert(nil == self.user?.id.description)
             XCTAssert(nil == self.user?.name.description)
