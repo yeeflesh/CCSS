@@ -9,6 +9,7 @@
 import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
+    //@IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var errorMessageLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -17,31 +18,34 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //set logo ImageView
+        //logoImageView.image = UIImage(named: "Logo & Name.png")
         
-        //set email text field
+        //set email TextField
         emailTextField.nextField = passwordTextField
         
-        //set login button
+        //set login Button
         loginButton.layer.cornerRadius = 5
         
-        //hard code account(email, password) in login
+        //hard code account(email, password) in login, help debug easier
         emailTextField.text = "test@gmail.com"
         passwordTextField.text = "test"
     }
     
-    //textfield keyboard disappear when user click "return"
+    //TextField keyboard disappear when user click "return"
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.nextField?.becomeFirstResponder()
-        
-        //in the password textfield, click "go" then login
-        if textField == passwordTextField {
-            login()
-            textField.resignFirstResponder()
+        //in the password TextField, click "go" then login
+        guard textField == passwordTextField else {
+            textField.nextField?.becomeFirstResponder()
+            return true
         }
+        
+        login()
+        textField.resignFirstResponder()
         return true
     }
     
-    //textfield keyboard disappear when user tap other side on screen
+    //TextField keyboard disappear when user tap other side on screen
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
@@ -55,7 +59,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         
         //check email format legal
-        guard isValidEmail(testEmail: email) else {
+        guard emailTextField.isValidEmail() else {
             errorMessageLabel.isHidden = false
             errorMessageLabel.text = "Email格式不正確 \n參照:example@organization.com"
             return
@@ -81,21 +85,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 }
                 return
             }
-            
-            
         }
         
     }
     
-    @IBAction internal func register(){
+    @IBAction internal func pushRegisterView(){
         //print("register")
-    }
-    
-    private func isValidEmail(testEmail: String) -> Bool {
-        let emailRegularExpresion = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        
-        let emailChecker = NSPredicate(format:"SELF MATCHES %@", emailRegularExpresion)
-        return emailChecker.evaluate(with: testEmail)
+        self.view.endEditing(true)
+        //let registerView = self.storyboard?.instantiateViewController(withIdentifier: "registerView")
+        //self.navigationController?.pushViewController(registerView!, animated: true)
     }
 
     override func didReceiveMemoryWarning() {

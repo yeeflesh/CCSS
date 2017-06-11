@@ -8,19 +8,101 @@
 
 import UIKit
 
-class RegisterViewController: UIViewController {
-
+class RegisterViewController: UIViewController, UITextFieldDelegate {
+    @IBOutlet weak var errorMessageLabel: UILabel!
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var passwordConfirmTextField: UITextField!
+    @IBOutlet weak var registerButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        //set name TextField
+        nameTextField.nextField = emailTextField
+        
+        //set email TextField
+        emailTextField.nextField = passwordTextField
+        
+        //set password TextField
+        passwordTextField.nextField = passwordConfirmTextField
+        
+        //set register Button
+        registerButton.layer.cornerRadius = 5
+        
+        //hard code account(email, password) in login, help debug easier
+        nameTextField.text = "registerTest"
+        emailTextField.text = "registerTest@gmail.com"
+        passwordTextField.text = "registerTest"
+        passwordConfirmTextField.text = "registerTest"
     }
+    
+    //TextField keyboard disappear when user click "return"
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        //in the password TextField, click "go" then login
+        guard textField == passwordConfirmTextField else {
+            textField.nextField?.becomeFirstResponder()
+            return true
+        }
+        
+        register()
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    //TextField keyboard disappear when user tap other side on screen
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction internal func register(){
+        //check name not empty
+        guard let name = nameTextField.text, !name.isEmpty else {
+            errorMessageLabel.isHidden = false
+            errorMessageLabel.text = "請輸入名字"
+            return
+        }
+        
+        //check email not empty
+        guard let email = emailTextField.text, !email.isEmpty else {
+            errorMessageLabel.isHidden = false
+            errorMessageLabel.text = "請輸入帳號"
+            return
+        }
+        
+        //check email format legal
+        guard emailTextField.isValidEmail() else {
+            errorMessageLabel.isHidden = false
+            errorMessageLabel.text = "Email格式不正確 \n參照:example@organization.com"
+            return
+        }
+        
+        //check password not empty
+        guard let password = passwordTextField.text, !password.isEmpty else {
+            errorMessageLabel.isHidden = false
+            errorMessageLabel.text = "請輸入密碼"
+            return
+        }
+        
+        //confirm password
+        guard let passwordConfirm = passwordConfirmTextField.text, (!passwordConfirm.isEmpty && password == passwordConfirm) else {
+            errorMessageLabel.isHidden = false
+            errorMessageLabel.text = "請確認密碼"
+            return
+        }
+        
+        errorMessageLabel.isHidden = true
+        let user = User(name: name, email: email, password: password)
+        
+        user.register()
+
+    }
 
     /*
     // MARK: - Navigation

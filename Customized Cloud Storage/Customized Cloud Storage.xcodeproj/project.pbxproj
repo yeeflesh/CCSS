@@ -12,6 +12,11 @@
 		7A175EC41EEC29E100F4D8F3 /* ExtensionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A175EC31EEC29E000F4D8F3 /* ExtensionTextField.swift */; };
 		7A175EC61EEC35EA00F4D8F3 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A175EC51EEC35EA00F4D8F3 /* RegisterViewController.swift */; };
 		7A175EC71EEC35EA00F4D8F3 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A175EC51EEC35EA00F4D8F3 /* RegisterViewController.swift */; };
+		7A175EC81EEC599D00F4D8F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC16701EE699C500614253 /* Main.storyboard */; };
+		7A175EC91EEC59B500F4D8F3 /* ExtensionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A175EC31EEC29E000F4D8F3 /* ExtensionTextField.swift */; };
+		7A175ECA1EEC59BA00F4D8F3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3DB8751EE87FEE00763AF9 /* LoginViewController.swift */; };
+		7A175F661EED48C400F4D8F3 /* Logo in Resources */ = {isa = PBXBuildFile; fileRef = 7A175F651EED48C400F4D8F3 /* Logo */; };
+		7A175F671EED48C400F4D8F3 /* Logo in Resources */ = {isa = PBXBuildFile; fileRef = 7A175F651EED48C400F4D8F3 /* Logo */; };
 		7A3DB86F1EE8485400763AF9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3DB86E1EE8485400763AF9 /* User.swift */; };
 		7A3DB8741EE87FB700763AF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC16701EE699C500614253 /* Main.storyboard */; };
 		7A3DB8761EE87FEE00763AF9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3DB8751EE87FEE00763AF9 /* LoginViewController.swift */; };
@@ -42,6 +47,7 @@
 /* Begin PBXFileReference section */
 		7A175EC31EEC29E000F4D8F3 /* ExtensionTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionTextField.swift; path = Models/ExtensionTextField.swift; sourceTree = "<group>"; };
 		7A175EC51EEC35EA00F4D8F3 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterViewController.swift; path = ViewController/RegisterViewController.swift; sourceTree = "<group>"; };
+		7A175F651EED48C400F4D8F3 /* Logo */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Logo; sourceTree = SOURCE_ROOT; };
 		7A3DB86E1EE8485400763AF9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/User.swift; sourceTree = "<group>"; };
 		7A3DB8751EE87FEE00763AF9 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = ViewController/LoginViewController.swift; sourceTree = "<group>"; };
 		7AEC16691EE699C500614253 /* Customized Cloud Storage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Customized Cloud Storage.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +89,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A175F111EED480900F4D8F3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7A175F651EED48C400F4D8F3 /* Logo */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		7A3DB8701EE8486000763AF9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +138,7 @@
 		7AEC166B1EE699C500614253 /* Customized Cloud Storage */ = {
 			isa = PBXGroup;
 			children = (
+				7A175F111EED480900F4D8F3 /* Resources */,
 				7A3DB8701EE8486000763AF9 /* Models */,
 				7A3DB8711EE8487E00763AF9 /* ViewController */,
 				7AEC166C1EE699C500614253 /* AppDelegate.swift */,
@@ -262,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A3DB8741EE87FB700763AF9 /* Main.storyboard in Resources */,
+				7A175F661EED48C400F4D8F3 /* Logo in Resources */,
 				7AEC16771EE699C500614253 /* LaunchScreen.storyboard in Resources */,
 				7AEC16741EE699C500614253 /* Assets.xcassets in Resources */,
 			);
@@ -278,6 +294,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A175EC81EEC599D00F4D8F3 /* Main.storyboard in Resources */,
+				7A175F671EED48C400F4D8F3 /* Logo in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,7 +328,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A175EC71EEC35EA00F4D8F3 /* RegisterViewController.swift in Sources */,
+				7A175EC91EEC59B500F4D8F3 /* ExtensionTextField.swift in Sources */,
 				7A175EC21EEC16AD00F4D8F3 /* User.swift in Sources */,
+				7A175ECA1EEC59BA00F4D8F3 /* LoginViewController.swift in Sources */,
 				7AEC168D1EE699C500614253 /* Customized_Cloud_StorageUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

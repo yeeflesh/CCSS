@@ -18,4 +18,11 @@ extension UITextField {
             objc_setAssociatedObject(self, &kAssociationKeyNextField, newField, .OBJC_ASSOCIATION_RETAIN)
         }
     }
+    
+    func isValidEmail() -> Bool {
+        let emailRegularExpresion = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailChecker = NSPredicate(format:"SELF MATCHES %@", emailRegularExpresion)
+        return emailChecker.evaluate(with: self.text)
+    }
 }

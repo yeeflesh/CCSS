@@ -28,7 +28,8 @@ public class User{
         get {return (_name ?? "")!}
     }
     
-    init(email: String, password:String) {
+    init(name: String? = nil, email: String, password:String) {
+        _name = name
         _email = email
         _password = password
     }
@@ -57,6 +58,10 @@ public class User{
             //print("login response: \(String(describing: response?["error"] as? Bool))")
             success(!(response?["error"] as? Bool)!)
         }
+    }
+    
+    func register(){
+        
     }
     
     private func httpRqeust(url: String, paramsJSONFormat: [String: Any], completion: @escaping ([String: Any]?) -> ()){
