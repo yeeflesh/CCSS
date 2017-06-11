@@ -9,7 +9,7 @@
 import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
-    //@IBOutlet weak var logoImageView: UIImageView!
+    @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var errorMessageLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -19,7 +19,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         //set logo ImageView
-        //logoImageView.image = UIImage(named: "Logo & Name.png")
+        logoImageView.image = UIImage(named: "Logo & Name")
         
         //set email TextField
         emailTextField.nextField = passwordTextField
@@ -72,6 +72,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
+        self.view.endEditing(true)
         errorMessageLabel.isHidden = true
         //print("login")
         let user = User(email: email, password: password)

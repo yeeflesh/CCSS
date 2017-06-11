@@ -60,8 +60,23 @@ public class User{
         }
     }
     
-    func register(){
+    func register(success: @escaping (Bool) -> ()){
+        //set url
+        let baseUrl = "http://140.124.181.196:4000"
+        let url = baseUrl + "/user/register"
         
+        //set parameter with json
+        let paramsJSONFormat: [String: Any] = ["name": _name!, "email": _email, "password": _password]
+        
+        httpRqeust(url: url, paramsJSONFormat: paramsJSONFormat){response in
+            guard response != nil else{
+                success(false)
+                return
+            }
+            
+            //print("register response: \(String(describing: response?["error"] as? Bool))")
+            success(!(response?["error"] as? Bool)!)
+        }
     }
     
     private func httpRqeust(url: String, paramsJSONFormat: [String: Any], completion: @escaping ([String: Any]?) -> ()){

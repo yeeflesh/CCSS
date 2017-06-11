@@ -46,7 +46,32 @@ class UserTests: XCTestCase {
             XCTAssert(nil == self.user?.id.description)
             XCTAssert(nil == self.user?.name.description)
         }
+    }
+    
+    func test_register_success(){
+        //XCTAssert(false)
         
+        //set different email
+        let emailNum = 4
+        let email = "register\(emailNum)@gmail.com"
+        user = User(name: "registerTest", email: email, password: "registerTest")
+        
+        user?.register(){ registerStatus in
+            //print("registerStatus_fail_registerStatus: \(registerStatusStatus.description)")
+            XCTAssert(true == registerStatus)
+        }
+    }
+    
+    func test_register_fail(){
+        //XCTAssert(false)
+        
+        //set wrong password
+        user?.name = "test"
+        
+        user?.register(){ registerStatus in
+            //print("register_fail_registerStatusStatus: \(registerStatusStatus.description)")
+            XCTAssert(false == registerStatus)
+        }
     }
     
     func testPerformanceExample() {

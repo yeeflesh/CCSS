@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toast_Swift
 
 class RegisterViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var errorMessageLabel: UILabel!
@@ -97,10 +98,23 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
+        self.view.endEditing(true)
         errorMessageLabel.isHidden = true
         let user = User(name: name, email: email, password: password)
         
-        user.register()
+        user.register(){registerStatus in
+            print("UI registerStatus status: \(registerStatus)")
+            guard registerStatus == true else{
+                DispatchQueue.main.sync {
+                    self.errorMessageLabel.isHidden = false
+                    self.errorMessageLabel.text = "用戶已存在"
+                }
+                return
+            }
+            DispatchQueue.main.sync {
+                self.view.makeToast("註冊成功", duration: 3, position: .center, title: " ", image: UIImage(named: "Checkmark"), style: nil, completion: nil)
+            }
+        }
 
     }
 
