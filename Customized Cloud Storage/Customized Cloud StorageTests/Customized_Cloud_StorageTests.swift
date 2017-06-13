@@ -54,7 +54,7 @@ class UserTests: XCTestCase {
         //set different email
         let emailNum = 4
         let email = "register\(emailNum)@gmail.com"
-        user = User(name: "registerTest", email: email, password: "registerTest")
+        user = User(name: "registerTest", email: email, password: "test")
         
         user?.register(){ registerStatus in
             //print("registerStatus_fail_registerStatus: \(registerStatusStatus.description)")

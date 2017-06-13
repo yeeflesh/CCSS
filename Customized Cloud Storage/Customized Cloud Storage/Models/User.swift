@@ -8,33 +8,47 @@
 
 import Foundation
 
-public class User{
+public class User: NSObject, NSCoding{
     private var _id: String? = nil
-    var id: String{
+    public var id: String{
         get {return (_id ?? "")!}
     }
-    private let _email: String!
-    var email: String{
-        get {return _email ?? ""}
-    }
-    private var _password: String! = nil
-    var password: String{
-        set {_password = newValue}
-        get {return _password ?? ""}
-    }
     private var _name: String? = nil
-    var name: String{
+    public var name: String{
         set {_name = newValue}
         get {return (_name ?? "")!}
     }
+    private let _email: String!
+    public var email: String{
+        get {return _email ?? ""}
+    }
+    private var _password: String! = nil
+    public var password: String{
+        set {_password = newValue}
+        get {return _password ?? ""}
+    }
     
-    init(name: String? = nil, email: String, password:String) {
+    public init(name: String? = nil, email: String, password:String) {
         _name = name
         _email = email
         _password = password
     }
     
-    func login(success: @escaping (Bool) -> ()){
+    public required init?(coder aDecoder: NSCoder) {
+        _id = aDecoder.decodeObject(forKey: "id") as? String
+        _name = aDecoder.decodeObject(forKey: "name") as? String
+        _email = aDecoder.decodeObject(forKey: "email") as? String
+        _password = aDecoder.decodeObject(forKey: "password") as? String
+    }
+    
+    public func encode(with aCoder: NSCoder) {
+        aCoder.encode(_id, forKey: "id")
+        aCoder.encode(_name, forKey: "name")
+        aCoder.encode(_email, forKey: "email")
+        aCoder.encode(_password, forKey: "password")
+    }
+    
+    public func login(success: @escaping (Bool) -> ()){
         //set url
         let baseUrl = "http://140.124.181.196:4000"
         let url = baseUrl + "/user/login"
@@ -60,7 +74,7 @@ public class User{
         }
     }
     
-    func register(success: @escaping (Bool) -> ()){
+    public func register(success: @escaping (Bool) -> ()){
         //set url
         let baseUrl = "http://140.124.181.196:4000"
         let url = baseUrl + "/user/register"

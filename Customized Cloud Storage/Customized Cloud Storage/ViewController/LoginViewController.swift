@@ -79,12 +79,26 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         user.login(){loginStauts in
             print("UI login status: \(loginStauts)")
+            //set login status in system
+            UserDefaults.standard.setValue(loginStauts, forKey: "loginStatus")
+            UserDefaults.standard.synchronize()
+            
             guard loginStauts == true else{
                 DispatchQueue.main.sync {
                     self.errorMessageLabel.isHidden = false
                     self.errorMessageLabel.text = "帳號或密碼錯誤"
                 }
                 return
+            }
+            
+            //save user data in system
+            let encodeUserData = NSKeyedArchiver.archivedData(withRootObject: user)
+            UserDefaults.standard.setValue(encodeUserData, forKey: "userData")
+            UserDefaults.standard.synchronize()
+            
+            //dismiss login page
+            DispatchQueue.main.sync {
+                self.dismiss(animated: true, completion: nil)
             }
         }
         

@@ -34,8 +34,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         //hard code account(email, password) in login, help debug easier
         nameTextField.text = "registerTest"
         emailTextField.text = "registerTest@gmail.com"
-        passwordTextField.text = "registerTest"
-        passwordConfirmTextField.text = "registerTest"
+        passwordTextField.text = "test"
+        passwordConfirmTextField.text = "test"
     }
     
     //TextField keyboard disappear when user click "return"
@@ -112,8 +112,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             DispatchQueue.main.sync {
-                self.view.makeToast("註冊成功", duration: 3, position: .center, title: " ", image: UIImage(named: "Checkmark"), style: nil, completion: nil)
+                self.view.makeToast("註冊成功", duration: 3, position: .center, title: " ", image: UIImage(named: "Checkmark"), style: nil) {(didTap: Bool) -> () in
+                    if didTap{
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
             }
+            
         }
 
     }
