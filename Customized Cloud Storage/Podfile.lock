@@ -1,12 +1,15 @@
 PODS:
+  - SideMenu (2.3.2)
   - Toast-Swift (2.0.0)
 
 DEPENDENCIES:
+  - SideMenu (~> 2.3)
   - Toast-Swift (~> 2.0)
 
 SPEC CHECKSUMS:
+  SideMenu: 3fa07dd05d4bade2b6f9889fb1877e312e1ba319
   Toast-Swift: 5b2f8f720f7e78e48511f693df1f9c9a6e38a25a
 
-PODFILE CHECKSUM: 12869e3929a8b9d26ebfc07717e63c9e11b43b0a
+PODFILE CHECKSUM: 23d4be10934e416e3caccc7d03c2b304534b3b71
 
 COCOAPODS: 1.2.1

@@ -18,11 +18,13 @@
 		7A175EC91EEC59B500F4D8F3 /* ExtensionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A175EC31EEC29E000F4D8F3 /* ExtensionTextField.swift */; };
 		7A175ECA1EEC59BA00F4D8F3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3DB8751EE87FEE00763AF9 /* LoginViewController.swift */; };
 		7A3DB86F1EE8485400763AF9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3DB86E1EE8485400763AF9 /* User.swift */; };
-		7A3DB8741EE87FB700763AF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC16701EE699C500614253 /* Main.storyboard */; };
 		7A3DB8761EE87FEE00763AF9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3DB8751EE87FEE00763AF9 /* LoginViewController.swift */; };
 		7A9354EF1EEDC21E00452632 /* Icons in Resources */ = {isa = PBXBuildFile; fileRef = 7A9354EE1EEDC21E00452632 /* Icons */; };
+		7AC0E3401EF0782600C66E77 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC0E33F1EF0782600C66E77 /* SideMenuTableViewController.swift */; };
+		7AC0E3411EF138DD00C66E77 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC0E33F1EF0782600C66E77 /* SideMenuTableViewController.swift */; };
 		7AC13D561EEEF77300FE4B6A /* DashBoardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC13D551EEEF77300FE4B6A /* DashBoardTableViewController.swift */; };
 		7AC13D571EEEF77300FE4B6A /* DashBoardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC13D551EEEF77300FE4B6A /* DashBoardTableViewController.swift */; };
+		7AC13D581EEFD3C000FE4B6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC16701EE699C500614253 /* Main.storyboard */; };
 		7AEC166D1EE699C500614253 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC166C1EE699C500614253 /* AppDelegate.swift */; };
 		7AEC16741EE699C500614253 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC16731EE699C500614253 /* Assets.xcassets */; };
 		7AEC16771EE699C500614253 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC16751EE699C500614253 /* LaunchScreen.storyboard */; };
@@ -60,6 +62,7 @@
 		7A3DB86E1EE8485400763AF9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/User.swift; sourceTree = "<group>"; };
 		7A3DB8751EE87FEE00763AF9 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = ViewController/LoginViewController.swift; sourceTree = "<group>"; };
 		7A9354EE1EEDC21E00452632 /* Icons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Icons; sourceTree = SOURCE_ROOT; };
+		7AC0E33F1EF0782600C66E77 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuTableViewController.swift; path = ViewController/SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		7AC13D551EEEF77300FE4B6A /* DashBoardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashBoardTableViewController.swift; path = ViewController/DashBoardTableViewController.swift; sourceTree = "<group>"; };
 		7AEC16691EE699C500614253 /* Customized Cloud Storage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Customized Cloud Storage.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AEC166C1EE699C500614253 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +145,7 @@
 				7A3DB8751EE87FEE00763AF9 /* LoginViewController.swift */,
 				7A175EC51EEC35EA00F4D8F3 /* RegisterViewController.swift */,
 				7AC13D551EEEF77300FE4B6A /* DashBoardTableViewController.swift */,
+				7AC0E33F1EF0782600C66E77 /* SideMenuTableViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -331,8 +335,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A3DB8741EE87FB700763AF9 /* Main.storyboard in Resources */,
 				7A9354EF1EEDC21E00452632 /* Icons in Resources */,
+				7AC13D581EEFD3C000FE4B6A /* Main.storyboard in Resources */,
 				7AEC16771EE699C500614253 /* LaunchScreen.storyboard in Resources */,
 				7A132C281EEDCA6E00D9DAFB /* Logo in Resources */,
 				7AEC16741EE699C500614253 /* Assets.xcassets in Resources */,
@@ -505,6 +509,7 @@
 				7A3DB86F1EE8485400763AF9 /* User.swift in Sources */,
 				7AC13D561EEEF77300FE4B6A /* DashBoardTableViewController.swift in Sources */,
 				7AEC166D1EE699C500614253 /* AppDelegate.swift in Sources */,
+				7AC0E3401EF0782600C66E77 /* SideMenuTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +532,7 @@
 				7A175ECA1EEC59BA00F4D8F3 /* LoginViewController.swift in Sources */,
 				7AC13D571EEEF77300FE4B6A /* DashBoardTableViewController.swift in Sources */,
 				7AEC168D1EE699C500614253 /* Customized_Cloud_StorageUITests.swift in Sources */,
+				7AC0E3411EF138DD00C66E77 /* SideMenuTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

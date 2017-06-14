@@ -1,53 +1,40 @@
 //
-//  DashBoardTableViewController.swift
+//  SideMenuTableViewController.swift
 //  Customized Cloud Storage
 //
-//  Created by MingE on 2017/6/13.
+//  Created by MingE on 2017/6/14.
 //  Copyright © 2017年 MingE. All rights reserved.
 //
 
 import UIKit
-import SideMenu
 
-class DashBoardTableViewController: UITableViewController {
-    @IBOutlet weak var MenuBarButton: UIBarButtonItem!
-    
+class SideMenuTableViewController: UITableViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        //get login status from system
-        let loginStatus = UserDefaults.standard.bool(forKey: "loginStatus")
-        guard loginStatus else {
-            //push login page
-            self.performSegue(withIdentifier: "loginViewSegue", sender: self)
-            return
-        }
+    @IBAction internal func logout(){
+        //print to debug
+        print("UI side menu: logout!!!!")
         
-        //get user data from system store
-        let userData = UserDefaults.standard.data(forKey: "userData")
-        let user = NSKeyedUnarchiver.unarchiveObject(with: userData!) as? User
-        print("UI dashboard -> System Store -> user email:  \(String(describing: user?.email))")
+        //set user data in system store
+        UserDefaults.standard.removeObject(forKey: "userData")
+        UserDefaults.standard.removeObject(forKey: "loginStatus")
+        UserDefaults.standard.synchronize()
         
-        //set gesture to dismiss side menu
-        let gesture = UITapGestureRecognizer(target: self, action:  #selector(dismissSideMenu))
-        self.view.addGestureRecognizer(gesture)
-    }
-    
-    @IBAction internal func showSideMenu(){
-        let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "sideMenuRootView") as! UISideMenuNavigationController
-        SideMenuManager.menuLeftNavigationController = menuLeftNavigationController
-        present(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
+        //dismiss side menu
+        dismiss(animated: false, completion: nil)
         
-        //set gesture
-        SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
-        //SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
-    }
-    
-    internal func dismissSideMenu(){
-        dismiss(animated: true, completion: nil)
+        //let app to the initial state
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let dashBoardView: UINavigationController = storyboard.instantiateViewController(withIdentifier: "initialRootView") as! UINavigationController
+        UIApplication.shared.keyWindow?.rootViewController = dashBoardView
     }
 
     override func didReceiveMemoryWarning() {
