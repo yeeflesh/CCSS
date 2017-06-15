@@ -31,23 +31,17 @@ class DashBoardTableViewController: UITableViewController {
         let user = NSKeyedUnarchiver.unarchiveObject(with: userData!) as? User
         print("UI dashboard -> System Store -> user email:  \(String(describing: user?.email))")
         
-        //set gesture to dismiss side menu
-        let gesture = UITapGestureRecognizer(target: self, action:  #selector(dismissSideMenu))
-        self.view.addGestureRecognizer(gesture)
+        //set side menu
+        let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "sideMenuRootView") as! UISideMenuNavigationController
+        SideMenuManager.menuLeftNavigationController = menuLeftNavigationController
+        
+        //set side menu gesture
+        SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
+        SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view, forMenu: .left)
     }
     
     @IBAction internal func showSideMenu(){
-        let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "sideMenuRootView") as! UISideMenuNavigationController
-        SideMenuManager.menuLeftNavigationController = menuLeftNavigationController
         present(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
-        
-        //set gesture
-        SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
-        //SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
-    }
-    
-    internal func dismissSideMenu(){
-        dismiss(animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
