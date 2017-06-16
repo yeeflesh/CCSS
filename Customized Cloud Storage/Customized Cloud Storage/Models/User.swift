@@ -27,6 +27,10 @@ public class User: NSObject, NSCoding{
         set {_password = newValue}
         get {return _password ?? ""}
     }
+    private var _clientServerList: [ClientServer]? = nil
+    public var clientServerList: [ClientServer]{
+        get {return _clientServerList ?? []}
+    }
     
     public init(name: String? = nil, email: String, password:String) {
         _name = name
@@ -39,13 +43,14 @@ public class User: NSObject, NSCoding{
         _name = aDecoder.decodeObject(forKey: "name") as? String
         _email = aDecoder.decodeObject(forKey: "email") as? String
         _password = aDecoder.decodeObject(forKey: "password") as? String
+        _clientServerList = aDecoder.decodeObject(forKey: "clientServerList") as? [ClientServer]
     }
-    
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(_id, forKey: "id")
         aCoder.encode(_name, forKey: "name")
         aCoder.encode(_email, forKey: "email")
         aCoder.encode(_password, forKey: "password")
+        aCoder.encode(_clientServerList, forKey: "clientServerList")
     }
     
     public func login(success: @escaping (Bool) -> ()){
@@ -89,6 +94,40 @@ public class User: NSObject, NSCoding{
             }
             
             //print("register response: \(String(describing: response?["error"] as? Bool))")
+            success(!(response?["error"] as? Bool)!)
+        }
+    }
+    
+    public func getClientServerList(success: @escaping (Bool) -> ()){
+        //set url
+        let baseUrl = "http://140.124.181.196:4000"
+        let url = baseUrl + "/user/getClientServerList"
+        
+        //set parameter with json
+        let paramsJSONFormat: [String: Any] = ["user_id": _id!]
+        
+        httpRqeust(url: url, paramsJSONFormat: paramsJSONFormat){response in
+            guard response != nil else{
+                success(false)
+                return
+            }
+            
+            //print("register response: \(String(describing: response?["error"] as? Bool))")
+            let clientServerList = response?["clientServerList"] as? [[String: Any]]
+            //print("clientServerList: \(String(describing: clientServerList))")
+            
+            for clientServerData in clientServerList!{
+                let name = (clientServerData["name"] as? String)!
+                let host = (clientServerData["host"] as? String)!
+                let id = (clientServerData["_id"] as? String)!
+                let token = (clientServerData["token"] as? String)!
+                
+                //clear clientServerList
+                if(self._clientServerList != nil){
+                    self._clientServerList = nil
+                }
+                self._clientServerList?.append(ClientServer(name: name, host: host, id: id, token: token))
+            }
             success(!(response?["error"] as? Bool)!)
         }
     }

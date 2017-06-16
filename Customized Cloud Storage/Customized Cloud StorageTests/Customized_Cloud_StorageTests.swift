@@ -74,6 +74,22 @@ class UserTests: XCTestCase {
         }
     }
     
+    func test_getClientServerList_Success(){
+        //login first
+        user?.login(){loginStatus in
+            self.user?.getClientServerList(){ getClientServerListStatus in
+                //print("register_fail_registerStatusStatus: \(registerStatusStatus.description)")
+                XCTAssert(true == getClientServerListStatus)
+                
+                let clientServer = self.user?.clientServerList[0]
+                XCTAssert("86c84a1f-e36e-42d3-b944-982e6db83872" == clientServer?.id)
+                XCTAssert("edit_server_name" == clientServer?.name)
+                XCTAssert("140.124.181.196" == clientServer?.host)
+                XCTAssert("1e71fd45-37ff-4e82-b1dd-b208ed3876a3" == clientServer?.token)
+            }
+        }
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
