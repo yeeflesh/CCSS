@@ -22,6 +22,11 @@
 		7A9354EF1EEDC21E00452632 /* Icons in Resources */ = {isa = PBXBuildFile; fileRef = 7A9354EE1EEDC21E00452632 /* Icons */; };
 		7AC0E3401EF0782600C66E77 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC0E33F1EF0782600C66E77 /* SideMenuTableViewController.swift */; };
 		7AC0E3411EF138DD00C66E77 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC0E33F1EF0782600C66E77 /* SideMenuTableViewController.swift */; };
+		7AC0E3481EF3F41400C66E77 /* IsCompressionSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC0E3471EF3F41400C66E77 /* IsCompressionSwitchTableViewCell.swift */; };
+		7AC0E3491EF3F41400C66E77 /* IsCompressionSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC0E3471EF3F41400C66E77 /* IsCompressionSwitchTableViewCell.swift */; };
+		7AC0E34B1EF3F78400C66E77 /* ClientServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC0E34A1EF3F78400C66E77 /* ClientServer.swift */; };
+		7AC0E34C1EF3F78400C66E77 /* ClientServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC0E34A1EF3F78400C66E77 /* ClientServer.swift */; };
+		7AC0E34D1EF3FDCD00C66E77 /* ClientServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC0E34A1EF3F78400C66E77 /* ClientServer.swift */; };
 		7AC13D561EEEF77300FE4B6A /* DashBoardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC13D551EEEF77300FE4B6A /* DashBoardTableViewController.swift */; };
 		7AC13D571EEEF77300FE4B6A /* DashBoardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC13D551EEEF77300FE4B6A /* DashBoardTableViewController.swift */; };
 		7AC13D581EEFD3C000FE4B6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC16701EE699C500614253 /* Main.storyboard */; };
@@ -63,6 +68,8 @@
 		7A3DB8751EE87FEE00763AF9 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = ViewController/LoginViewController.swift; sourceTree = "<group>"; };
 		7A9354EE1EEDC21E00452632 /* Icons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Icons; sourceTree = SOURCE_ROOT; };
 		7AC0E33F1EF0782600C66E77 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuTableViewController.swift; path = ViewController/SideMenuTableViewController.swift; sourceTree = "<group>"; };
+		7AC0E3471EF3F41400C66E77 /* IsCompressionSwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IsCompressionSwitchTableViewCell.swift; path = CustomerCell/IsCompressionSwitchTableViewCell.swift; sourceTree = "<group>"; };
+		7AC0E34A1EF3F78400C66E77 /* ClientServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClientServer.swift; path = Models/ClientServer.swift; sourceTree = "<group>"; };
 		7AC13D551EEEF77300FE4B6A /* DashBoardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashBoardTableViewController.swift; path = ViewController/DashBoardTableViewController.swift; sourceTree = "<group>"; };
 		7AEC16691EE699C500614253 /* Customized Cloud Storage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Customized Cloud Storage.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AEC166C1EE699C500614253 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +142,7 @@
 			children = (
 				7A3DB86E1EE8485400763AF9 /* User.swift */,
 				7A175EC31EEC29E000F4D8F3 /* ExtensionTextField.swift */,
+				7AC0E34A1EF3F78400C66E77 /* ClientServer.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -148,6 +156,14 @@
 				7AC0E33F1EF0782600C66E77 /* SideMenuTableViewController.swift */,
 			);
 			name = ViewController;
+			sourceTree = "<group>";
+		};
+		7AC0E3461EF3F30900C66E77 /* CustomerCell */ = {
+			isa = PBXGroup;
+			children = (
+				7AC0E3471EF3F41400C66E77 /* IsCompressionSwitchTableViewCell.swift */,
+			);
+			name = CustomerCell;
 			sourceTree = "<group>";
 		};
 		7AEC16601EE699C500614253 = {
@@ -175,6 +191,7 @@
 		7AEC166B1EE699C500614253 /* Customized Cloud Storage */ = {
 			isa = PBXGroup;
 			children = (
+				7AC0E3461EF3F30900C66E77 /* CustomerCell */,
 				7A175F111EED480900F4D8F3 /* Resources */,
 				7A3DB8701EE8486000763AF9 /* Models */,
 				7A3DB8711EE8487E00763AF9 /* ViewController */,
@@ -506,7 +523,9 @@
 				7A3DB8761EE87FEE00763AF9 /* LoginViewController.swift in Sources */,
 				7A175EC61EEC35EA00F4D8F3 /* RegisterViewController.swift in Sources */,
 				7A175EC41EEC29E100F4D8F3 /* ExtensionTextField.swift in Sources */,
+				7AC0E34B1EF3F78400C66E77 /* ClientServer.swift in Sources */,
 				7A3DB86F1EE8485400763AF9 /* User.swift in Sources */,
+				7AC0E3481EF3F41400C66E77 /* IsCompressionSwitchTableViewCell.swift in Sources */,
 				7AC13D561EEEF77300FE4B6A /* DashBoardTableViewController.swift in Sources */,
 				7AEC166D1EE699C500614253 /* AppDelegate.swift in Sources */,
 				7AC0E3401EF0782600C66E77 /* SideMenuTableViewController.swift in Sources */,
@@ -517,6 +536,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AC0E34C1EF3F78400C66E77 /* ClientServer.swift in Sources */,
 				7A175EC11EEC16AC00F4D8F3 /* User.swift in Sources */,
 				7AEC16821EE699C500614253 /* Customized_Cloud_StorageTests.swift in Sources */,
 			);
@@ -529,7 +549,9 @@
 				7A175EC71EEC35EA00F4D8F3 /* RegisterViewController.swift in Sources */,
 				7A175EC91EEC59B500F4D8F3 /* ExtensionTextField.swift in Sources */,
 				7A175EC21EEC16AD00F4D8F3 /* User.swift in Sources */,
+				7AC0E34D1EF3FDCD00C66E77 /* ClientServer.swift in Sources */,
 				7A175ECA1EEC59BA00F4D8F3 /* LoginViewController.swift in Sources */,
+				7AC0E3491EF3F41400C66E77 /* IsCompressionSwitchTableViewCell.swift in Sources */,
 				7AC13D571EEEF77300FE4B6A /* DashBoardTableViewController.swift in Sources */,
 				7AEC168D1EE699C500614253 /* Customized_Cloud_StorageUITests.swift in Sources */,
 				7AC0E3411EF138DD00C66E77 /* SideMenuTableViewController.swift in Sources */,
