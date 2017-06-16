@@ -112,11 +112,12 @@ public class User: NSObject, NSCoding{
                 return
             }
             
-            //print("register response: \(String(describing: response?["error"] as? Bool))")
-            let clientServerList = response?["clientServerList"] as? [[String: Any]]
+            let responseData = response?["data"] as? [String: Any]
+            //print("register response: \(String(describing: response?["clientServerList"]))")
+            let clientServerListData = responseData?["clientServerList"] as? [[String: Any]]
             //print("clientServerList: \(String(describing: clientServerList))")
             
-            for clientServerData in clientServerList!{
+            for clientServerData in clientServerListData!{
                 let name = (clientServerData["name"] as? String)!
                 let host = (clientServerData["host"] as? String)!
                 let id = (clientServerData["_id"] as? String)!
