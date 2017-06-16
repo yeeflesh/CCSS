@@ -27,9 +27,9 @@ public class User: NSObject, NSCoding{
         set {_password = newValue}
         get {return _password ?? ""}
     }
-    private var _clientServerList: [ClientServer]? = nil
+    private var _clientServerList: [ClientServer] = []
     public var clientServerList: [ClientServer]{
-        get {return _clientServerList ?? []}
+        get {return _clientServerList}
     }
     
     public init(name: String? = nil, email: String, password:String) {
@@ -43,7 +43,7 @@ public class User: NSObject, NSCoding{
         _name = aDecoder.decodeObject(forKey: "name") as? String
         _email = aDecoder.decodeObject(forKey: "email") as? String
         _password = aDecoder.decodeObject(forKey: "password") as? String
-        _clientServerList = aDecoder.decodeObject(forKey: "clientServerList") as? [ClientServer]
+        _clientServerList = aDecoder.decodeObject(forKey: "clientServerList") as? [ClientServer] ?? []
     }
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(_id, forKey: "id")
@@ -117,17 +117,20 @@ public class User: NSObject, NSCoding{
             let clientServerListData = responseData?["clientServerList"] as? [[String: Any]]
             //print("clientServerList: \(String(describing: clientServerList))")
             
+            //clear clientServerList
+            if(self._clientServerList.count > 0){
+                self._clientServerList.removeAll()
+            }
+            
             for clientServerData in clientServerListData!{
                 let name = (clientServerData["name"] as? String)!
                 let host = (clientServerData["host"] as? String)!
                 let id = (clientServerData["_id"] as? String)!
                 let token = (clientServerData["token"] as? String)!
-                
-                //clear clientServerList
-                if(self._clientServerList != nil){
-                    self._clientServerList = nil
-                }
-                self._clientServerList?.append(ClientServer(name: name, host: host, id: id, token: token))
+                let clientServer = ClientServer(name: name, host: host, id: id, token: token)
+ 
+                self._clientServerList.append(clientServer)
+                //print("clentServerList.count: \(String(describing: self._clientServerList.count))\nclientServerList: \(String(describing: self._clientServerList[0].name))")
             }
             success(!(response?["error"] as? Bool)!)
         }
