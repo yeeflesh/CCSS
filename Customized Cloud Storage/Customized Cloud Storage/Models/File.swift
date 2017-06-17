@@ -14,8 +14,8 @@ public class File: NSObject, NSCoding{
         set {_name = newValue}
         get {return _name}
     }
-    private var _resolution: String
-    public var resolution: String{
+    private var _resolution: Bool
+    public var resolution: Bool{
         set {_resolution = newValue}
         get {return _resolution}
     }
@@ -24,13 +24,13 @@ public class File: NSObject, NSCoding{
         set {_path = newValue}
         get {return _path}
     }
-    private var _size: String
-    public var size: String{
+    private var _size: Int
+    public var size: Int{
         set {_size = newValue}
         get {return _size}
     }
     
-    public init(name: String, resolution: String, path: String, size: String) {
+    public init(name: String, resolution: Bool, path: String, size: Int) {
         _name = name
         _resolution = resolution
         _path = path
@@ -39,9 +39,9 @@ public class File: NSObject, NSCoding{
     
     public required init?(coder aDecoder: NSCoder) {
         _name = aDecoder.decodeObject(forKey: "name") as? String ?? ""
-        _resolution = aDecoder.decodeObject(forKey: "resolution") as? String ?? ""
+        _resolution = aDecoder.decodeObject(forKey: "resolution") as? Bool ?? false
         _path = aDecoder.decodeObject(forKey: "path") as? String ?? ""
-        _size = aDecoder.decodeObject(forKey: "size") as? String ?? ""
+        _size = aDecoder.decodeObject(forKey: "size") as? Int ?? 0
     }
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(_name, forKey: "name")
