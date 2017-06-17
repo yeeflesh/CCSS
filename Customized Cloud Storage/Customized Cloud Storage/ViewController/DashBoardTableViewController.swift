@@ -12,9 +12,15 @@ import SideMenu
 class DashBoardTableViewController: UITableViewController {
     @IBOutlet weak var MenuBarButton: UIBarButtonItem!
     
+    var user: User? = nil
+    var currentClientServer = 0
+    //var fileInfo = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -26,10 +32,7 @@ class DashBoardTableViewController: UITableViewController {
             return
         }
         
-        //get user data from system store
-        let userData = UserDefaults.standard.data(forKey: "userData")
-        let user = NSKeyedUnarchiver.unarchiveObject(with: userData!) as? User
-        print("UI dashboard -> System Store -> user email:  \(String(describing: user?.email))")
+        updateClientServerData()
         
         //set side menu
         let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "sideMenuRootView") as! UISideMenuNavigationController
@@ -38,6 +41,43 @@ class DashBoardTableViewController: UITableViewController {
         //set side menu gesture
         SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view, forMenu: .left)
+    }
+    
+    internal func updateClientServerData(){
+        //get user data from system store
+        let userData = UserDefaults.standard.data(forKey: "userData")
+        let user = NSKeyedUnarchiver.unarchiveObject(with: userData!) as? User
+        print("UI dashboard -> System Store -> user email:  \(String(describing: user?.email))")
+        print("UI dashboard -> System Store -> user id:  \(String(describing: user?.id))")
+        
+        //get user client server list
+        user?.getClientServerList(){getClientServerListStatus in
+            print("UI dashBoard -> user getClientServerList Status: \(getClientServerListStatus)")
+            guard getClientServerListStatus else{return}
+            
+            //set page titile
+            DispatchQueue.main.async {
+                self.navigationItem.title = ((user?.clientServerList.count)! > 0) ? user?.clientServerList[self.currentClientServer].name : "尚未擁有儲存空間"
+            }
+            
+            for clientServer in (user?.clientServerList)!{
+                clientServer.getFiles(){getFilesStatus in
+                    print("UI dashBoard -> user getClientServerList -> getFiles Status: \(getFilesStatus)")
+                    guard getFilesStatus else{return}
+                    
+                    //save user data in system
+                    let encodeUserData = NSKeyedArchiver.archivedData(withRootObject: user!)
+                    UserDefaults.standard.setValue(encodeUserData, forKey: "userData")
+                    UserDefaults.standard.synchronize()
+                    
+                    self.user = user
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
     }
     
     @IBAction internal func showSideMenu(){
@@ -53,23 +93,30 @@ class DashBoardTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return user?.clientServerList[currentClientServer].fileList.count ?? 0
     }
-
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let fileInfoCell = tableView.dequeueReusableCell(withIdentifier: "fileInfoCell", for: indexPath) as! FileInfoTableViewCell
+        
+        let fileList = user?.clientServerList[currentClientServer].fileList
+        fileInfoCell.fileNameLabel.text = fileList?[indexPath.row].name
+        fileInfoCell.pathLabel.text = fileList?[indexPath.row].path
+        fileInfoCell.sizeLabel.text = bytesToSize(bytes: (fileList?[indexPath.row].size)!)
 
-        // Configure the cell...
-
-        return cell
+        return fileInfoCell
     }
-    */
+    
+    internal func bytesToSize(bytes: Int) -> String{
+        let formatter = ByteCountFormatter()
+        formatter.countStyle = .binary
+        return formatter.string(fromByteCount: Int64(bytes))
+    }
 
     /*
     // Override to support conditional editing of the table view.

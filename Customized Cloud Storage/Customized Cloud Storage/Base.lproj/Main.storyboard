@@ -519,14 +519,56 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="uHE-Hl-h98">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fileInfoCell" id="hgn-1Y-lmx" customClass="FileInfoTableViewCell" customModule="Customized_Cloud_Storage" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uHE-Hl-h98" id="md0-Sj-Jmi">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hgn-1Y-lmx" id="zZj-QG-tLX">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BsR-TP-sjF">
+                                            <rect key="frame" x="12.5" y="0.0" width="350" height="44"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="GPE-Vc-xWP">
+                                                    <rect key="frame" x="0.0" y="0.0" width="350" height="44"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FileName" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqD-7l-FB5">
+                                                            <rect key="frame" x="0.0" y="0.0" width="71.5" height="44"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Path" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muV-eY-lot">
+                                                            <rect key="frame" x="186" y="0.0" width="25.5" height="44"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Size" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FvE-kR-YP7">
+                                                            <rect key="frame" x="326" y="0.0" width="24" height="44"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="44" id="9gm-hW-SJk"/>
+                                                <constraint firstAttribute="width" constant="350" id="tXY-gS-jmc"/>
+                                            </constraints>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="BsR-TP-sjF" firstAttribute="centerX" secondItem="zZj-QG-tLX" secondAttribute="centerX" id="34p-UI-8m6"/>
+                                        <constraint firstItem="BsR-TP-sjF" firstAttribute="top" secondItem="zZj-QG-tLX" secondAttribute="top" id="wbp-fM-une"/>
+                                    </constraints>
                                 </tableViewCellContentView>
-                                <gestureRecognizers/>
+                                <connections>
+                                    <outlet property="fileNameLabel" destination="zqD-7l-FB5" id="7KI-Kg-CTx"/>
+                                    <outlet property="pathLabel" destination="muV-eY-lot" id="pwv-Aa-7SN"/>
+                                    <outlet property="sizeLabel" destination="FvE-kR-YP7" id="15g-Pl-ld0"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -553,7 +595,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0wz-DB-Bo0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="534" y="122"/>
+            <point key="canvasLocation" x="533.60000000000002" y="121.88905547226388"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hmY-IX-29y">

@@ -78,15 +78,15 @@ public class ClientServer: NSObject, NSCoding{
             
             for fileData in fileListData!{
                 let name = (fileData["_name"] as? String)!
-                let resolution = fileData["_resolution"] as? Bool ?? false
                 let path = (fileData["_path"] as? String)!
                 let size = (fileData["_size"] as? Int)!
-                let file = File(name: name, resolution: resolution, path: path, size: size)
+                guard size > 0 else{continue}
+                let file = File(name: name, path: path, size: size)
                 
                 self._fileList.append(file)
                 //print("clentServerList.count: \(String(describing: self._clientServerList.count))\nclientServerList: \(String(describing: self._clientServerList[0].name))")
             }
-            success(!(response?["error"] as? Bool)!)
+            success(true)
         }
 
     }
