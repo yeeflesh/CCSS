@@ -77,12 +77,13 @@ class UserTests: XCTestCase {
     
     func test_getClientServerList_success(){
         //login first
-        user?.login(){loginStatus in
-            self.user?.getClientServerList(){ getClientServerListStatus in
+        let currentUser = user
+        currentUser?.login(){loginStatus in
+            currentUser?.getClientServerList(){ getClientServerListStatus in
                 //print("register_fail_registerStatusStatus: \(registerStatusStatus.description)")
                 XCTAssertEqual(true, getClientServerListStatus)
                 
-                let clientServer = self.user?.clientServerList[0]
+                let clientServer = currentUser?.clientServerList[0]
                 XCTAssertEqual("86c84a1f-e36e-42d3-b944-982e6db83872", clientServer?.id)
                 XCTAssertEqual("edit_server_name", clientServer?.name)
                 XCTAssertEqual("140.124.181.196", clientServer?.host)
