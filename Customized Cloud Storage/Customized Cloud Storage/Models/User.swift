@@ -113,7 +113,7 @@ public class User: NSObject, NSCoding{
             }
             
             let responseData = response?["data"] as? [String: Any]
-            //print("register response: \(String(describing: response?["clientServerList"]))")
+            //print("getClientServerList response: \(String(describing: response?["data"]))")
             let clientServerListData = responseData?["clientServerList"] as? [[String: Any]]
             //print("clientServerList: \(String(describing: clientServerList))")
             
@@ -145,6 +145,9 @@ public class User: NSObject, NSCoding{
         request.httpMethod = "POST"
         request.httpBody = paramsJSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        
+        //set time out
+        URLSessionConfiguration.default.timeoutIntervalForRequest = 10
         
         let task = URLSession.shared.dataTask(with: request) {data, response, error in
             guard let data = data, error == nil else{

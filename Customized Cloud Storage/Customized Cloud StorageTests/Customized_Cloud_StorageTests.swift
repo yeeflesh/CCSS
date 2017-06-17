@@ -27,10 +27,11 @@ class UserTests: XCTestCase {
     
     func test_login_success() {
         //XCTAssert(false)
-        user?.login(){ loginStatus in
-            XCTAssert(true == loginStatus)
-            XCTAssert("592d0fba71957372bb51db62" == self.user?.id)
-            XCTAssert("test" == self.user?.name)
+        let currentUser = self.user
+        currentUser?.login(){ loginStatus in
+            XCTAssertEqual(true, loginStatus)
+            XCTAssertEqual("592d0fba71957372bb51db62", currentUser?.id)
+            XCTAssertEqual("test", currentUser?.name)
         }
     }
     
@@ -42,9 +43,9 @@ class UserTests: XCTestCase {
 
         user?.login(){ loginStatus in
             //print("login_fail_loginStatus: \(loginStatus.description)")
-            XCTAssert(false == loginStatus)
-            XCTAssert(nil == self.user?.id.description)
-            XCTAssert(nil == self.user?.name.description)
+            XCTAssertEqual(false, loginStatus)
+            XCTAssertEqual(nil, self.user?.id.description)
+            XCTAssertEqual(nil, self.user?.name.description)
         }
     }
     
@@ -58,43 +59,62 @@ class UserTests: XCTestCase {
         
         user?.register(){ registerStatus in
             //print("registerStatus_fail_registerStatus: \(registerStatusStatus.description)")
-            XCTAssert(true == registerStatus)
+            XCTAssertEqual(true, registerStatus)
         }
     }
     
     func test_register_fail(){
         //XCTAssert(false)
         
-        //set wrong password
+        //set exsist account
         user?.name = "test"
         
         user?.register(){ registerStatus in
             //print("register_fail_registerStatusStatus: \(registerStatusStatus.description)")
-            XCTAssert(false == registerStatus)
+            XCTAssertEqual(false, registerStatus)
         }
     }
     
-    func test_getClientServerList_Success(){
+    func test_getClientServerList_success(){
         //login first
         user?.login(){loginStatus in
             self.user?.getClientServerList(){ getClientServerListStatus in
                 //print("register_fail_registerStatusStatus: \(registerStatusStatus.description)")
-                XCTAssert(true == getClientServerListStatus)
+                XCTAssertEqual(true, getClientServerListStatus)
                 
                 let clientServer = self.user?.clientServerList[0]
-                XCTAssert("86c84a1f-e36e-42d3-b944-982e6db83872" == clientServer?.id)
-                XCTAssert("edit_server_name" == clientServer?.name)
-                XCTAssert("140.124.181.196" == clientServer?.host)
-                XCTAssert("1e71fd45-37ff-4e82-b1dd-b208ed3876a3" == clientServer?.token)
+                XCTAssertEqual("86c84a1f-e36e-42d3-b944-982e6db83872", clientServer?.id)
+                XCTAssertEqual("edit_server_name", clientServer?.name)
+                XCTAssertEqual("140.124.181.196", clientServer?.host)
+                XCTAssertEqual("1e71fd45-37ff-4e82-b1dd-b208ed3876a3", clientServer?.token)
             }
         }
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func test_getClientServerList_timeOut(){
+        //XCTAssert(false)
+        let currentUser = User(email: "timeOutTest@gmail.com", password: "test")
+        //login first
+        currentUser.login(){loginStatus in
+            //print("user id: \(user.id), email: \(user.email), loginStatus: \(loginStatus)")
+            currentUser.getClientServerList(){ getClientServerListStatus in
+                //print("register_fail_registerStatusStatus: \(registerStatusStatus.description)")
+                XCTAssertEqual(false, getClientServerListStatus)
+                
+//                let clientServer = self.user?.clientServerList[0]
+//                XCTAssert("86c84a1f-e36e-42d3-b944-982e6db83872" == clientServer?.id)
+//                XCTAssert("edit_server_name" == clientServer?.name)
+//                XCTAssert("140.124.181.196" == clientServer?.host)
+//                XCTAssert("1e71fd45-37ff-4e82-b1dd-b208ed3876a3" == clientServer?.token)
+            }
         }
     }
+    
+//    func testPerformanceExample() {
+//        // This is an example of a performance test case.
+//        self.measure {
+//            // Put the code you want to measure the time of here.
+//        }
+//    }
     
 }
