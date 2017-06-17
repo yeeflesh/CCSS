@@ -9,6 +9,7 @@
 import Foundation
 
 public class User: NSObject, NSCoding{
+    private let mainServer = "http://140.124.181.196:4000"
     private var _id: String? = nil
     public var id: String{
         get {return (_id ?? "")!}
@@ -55,8 +56,7 @@ public class User: NSObject, NSCoding{
     
     public func login(success: @escaping (Bool) -> ()){
         //set url
-        let baseUrl = "http://140.124.181.196:4000"
-        let url = baseUrl + "/user/login"
+        let url = mainServer + "/user/login"
         
         //set parameter with json
         let paramsJSONFormat: [String: Any] = ["email": _email, "password": _password]
@@ -81,8 +81,7 @@ public class User: NSObject, NSCoding{
     
     public func register(success: @escaping (Bool) -> ()){
         //set url
-        let baseUrl = "http://140.124.181.196:4000"
-        let url = baseUrl + "/user/register"
+        let url = mainServer + "/user/register"
         
         //set parameter with json
         let paramsJSONFormat: [String: Any] = ["name": _name!, "email": _email, "password": _password]
@@ -100,8 +99,7 @@ public class User: NSObject, NSCoding{
     
     public func getClientServerList(success: @escaping (Bool) -> ()){
         //set url
-        let baseUrl = "http://140.124.181.196:4000"
-        let url = baseUrl + "/user/getClientServerList"
+        let url = mainServer + "/user/getClientServerList"
         
         //set parameter with json
         let paramsJSONFormat: [String: Any] = ["user_id": _id!]
@@ -133,6 +131,33 @@ public class User: NSObject, NSCoding{
                 //print("clentServerList.count: \(String(describing: self._clientServerList.count))\nclientServerList: \(String(describing: self._clientServerList[0].name))")
             }
             success(!(response?["error"] as? Bool)!)
+        }
+    }
+    
+    public func addClientServer(name: String, host: String, success: @escaping (Bool) -> ()){
+        //set url
+        let url = mainServer + "/user/addClientServer"
+        
+        //set parameter with json
+        let paramsJSONFormat: [String: Any] = ["user_id": _id ?? "", "client_server_name": name, "client_server_host": host]
+        
+        httpRqeust(url: url, paramsJSONFormat: paramsJSONFormat){response in
+            guard response != nil else{
+                success(false)
+                return
+            }
+            guard let error = response?["error"] as? Bool, !error else{
+                success(false)
+                return
+            }
+            //print("response: \(reponse)")
+            
+            //get authorization from main server
+            self.getClientServerList(){getClientServerListStatus in}
+            
+            //print("login response: \(String(describing: response?["error"] as? Bool))")
+            success(!error)
+            //success(!(response?["error"] as? Bool)!)
         }
     }
     
