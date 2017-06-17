@@ -100,7 +100,8 @@ class SideMenuTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         // the 3rd section put client server list
         guard section != 2 else{
-            return 1
+            //print("UI side menu -> client server list count: \(String(describing: user?.clientServerList.count))")
+            return (user?.clientServerList.count ?? 0) + 1
         }
         
         // the last section that put an empty cell & a logout button
@@ -154,14 +155,20 @@ class SideMenuTableViewController: UITableViewController {
             return logoutButtonCell
         }
         
+        
         //set add client server button at the last cell of client server list section
-        guard indexPath.row != indexPath.startIndex else{
-            let addClientServerCell = tableView.dequeueReusableCell(withIdentifier: "addClientServerCell", for: indexPath)
-            return addClientServerCell
+        guard indexPath.row != indexPath.endIndex - 1 else{
+            let addClientServerButtonCell = tableView.dequeueReusableCell(withIdentifier: "addClientServerButtonCell", for: indexPath)
+            return addClientServerButtonCell
         }
         
         //set client server list in other's cell
         let clientServerListCell = tableView.dequeueReusableCell(withIdentifier: "subtitleCell", for: indexPath)
+//        print("UI side menu -> section \(indexPath.section) -> indexPath.row: \(indexPath.row)")
+//        print("indexPath.endIndex: \(indexPath.endIndex)")
+        let clientServer = user?.clientServerList[indexPath.row]
+        clientServerListCell.textLabel?.text = clientServer?.name
+        clientServerListCell.detailTextLabel?.text = clientServer?.host
         return clientServerListCell
     }
  
