@@ -16,7 +16,9 @@ class SideMenuTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +35,7 @@ class SideMenuTableViewController: UITableViewController {
         })
         addClientServerController.addTextField(configurationHandler: { (textFiled: UITextField!) ->() in
             textFiled.placeholder = "IP位址(Host Name)"
+            textFiled.keyboardType = .decimalPad
         })
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
@@ -40,15 +43,64 @@ class SideMenuTableViewController: UITableViewController {
         let addClientServerAction = UIAlertAction(title: "送出", style: .default, handler: {(action: UIAlertAction!) -> () in
             let clientServerName = (addClientServerController.textFields?.first)! as UITextField
             let clientServerHostName = (addClientServerController.textFields?.last)! as UITextField
-            self.addClientServer(name: clientServerName.text!, hostName: clientServerHostName.text!)
+            self.addClientServer(name: clientServerName.text!, host: clientServerHostName.text!)
         })
         addClientServerController.addAction(addClientServerAction)
         
         self.present(addClientServerController, animated: true, completion: nil)
     }
     
-    internal func addClientServer(name: String, hostName: String){
+    internal func addClientServer(name: String, host: String){
         //print("UI side menu -> add client server: clicked!")
+        guard !name.isEmpty || !host.isEmpty else{
+            DispatchQueue.main.async {
+                self.view.makeToast("未輸入資料", duration: 3, position: .center, title: " ", image: UIImage(named: "Delete"), style: nil, completion:nil)
+            }
+            return
+        }
+        
+        guard validateIpAddress(ipToValidate: host) else {
+            DispatchQueue.main.async {
+                self.view.makeToast("IP位址格式不正確", duration: 3, position: .center, title: " ", image: UIImage(named: "Delete"), style: nil, completion:nil)
+            }
+            return
+        }
+        
+        let currentUser = user
+        currentUser?.addClientServer(name: name, host: host){addClientServerStatus in
+            guard addClientServerStatus else{
+                DispatchQueue.main.async {
+                    self.view.makeToast("新增失敗或Host Name已經重複", duration: 3, position: .center, title: " ", image: UIImage(named: "Delete"), style: nil, completion:nil)
+                }
+                return
+            }
+            
+            let encodeUserData = NSKeyedArchiver.archivedData(withRootObject: currentUser!)
+            UserDefaults.standard.setValue(encodeUserData, forKey: "userData")
+            UserDefaults.standard.synchronize()
+            
+            self.user = currentUser
+            
+            DispatchQueue.main.async {
+                self.view.makeToast("新增成功", duration: 3, position: .center, title: " ", image: UIImage(named: "Checkmark"), style: nil, completion:nil)
+                //self.tableView.reloadData()
+            }
+            
+            DispatchQueue.main.sync {
+                //save user data in system
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    internal func validateIpAddress(ipToValidate: String) -> Bool {
+        var sin = sockaddr_in()
+        var sin6 = sockaddr_in6()
+        
+        if ipToValidate.withCString({ cstring in inet_pton(AF_INET6, cstring, &sin6.sin6_addr) }) == 1 {return true}
+        else if ipToValidate.withCString({ cstring in inet_pton(AF_INET, cstring, &sin.sin_addr) }) == 1 {return true}
+        
+        return false
     }
     
     @IBAction internal func logoutAlert(){
@@ -101,12 +153,12 @@ class SideMenuTableViewController: UITableViewController {
         // the 3rd section put client server list
         guard section != 2 else{
             //print("UI side menu -> client server list count: \(String(describing: user?.clientServerList.count))")
-            return (user?.clientServerList.count ?? 0) + 1
+            return (user?.clientServerList.count)!
         }
         
-        // the last section that put an empty cell & a logout button
+        // the last section that put an addClientServer button && an empty cell & a logout button
         guard section != 3 else{
-            return 2
+            return 3
         }
         
         // other sections
@@ -144,7 +196,13 @@ class SideMenuTableViewController: UITableViewController {
         
         //set an empty cell at the 2nd-last index
         guard indexPath.section != 3 else{
+            //set add client server button at the first cell
             guard indexPath.row != indexPath.startIndex else{
+                let addClientServerButtonCell = tableView.dequeueReusableCell(withIdentifier: "addClientServerButtonCell", for: indexPath)
+                return addClientServerButtonCell
+            }
+            
+            guard indexPath.row != indexPath.startIndex + 1 else{
                 let emptyCell = tableView.dequeueReusableCell(withIdentifier: "emptyCell", for: indexPath)
                 emptyCell.isUserInteractionEnabled = false
                 return emptyCell
@@ -155,17 +213,10 @@ class SideMenuTableViewController: UITableViewController {
             return logoutButtonCell
         }
         
-        
-        //set add client server button at the last cell of client server list section
-        guard indexPath.row != indexPath.endIndex - 1 else{
-            let addClientServerButtonCell = tableView.dequeueReusableCell(withIdentifier: "addClientServerButtonCell", for: indexPath)
-            return addClientServerButtonCell
-        }
-        
+        //print("UI side menu -> section \(indexPath.section) -> indexPath.row: \(indexPath.row)")
+        //print("indexPath.endIndex: \(indexPath.endIndex)")
         //set client server list in other's cell
         let clientServerListCell = tableView.dequeueReusableCell(withIdentifier: "subtitleCell", for: indexPath)
-//        print("UI side menu -> section \(indexPath.section) -> indexPath.row: \(indexPath.row)")
-//        print("indexPath.endIndex: \(indexPath.endIndex)")
         let clientServer = user?.clientServerList[indexPath.row]
         clientServerListCell.textLabel?.text = clientServer?.name
         clientServerListCell.detailTextLabel?.text = clientServer?.host

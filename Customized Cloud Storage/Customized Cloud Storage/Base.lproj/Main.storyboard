@@ -41,6 +41,7 @@
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E-mail" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="F6d-SX-E4s">
                                                 <rect key="frame" x="0.0" y="20.5" width="283" height="30"/>
+                                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
@@ -64,6 +65,7 @@
                                                     </label>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gHq-g6-2yP">
                                                         <rect key="frame" x="0.0" y="20.5" width="283" height="30"/>
+                                                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" spellCheckingType="no" returnKeyType="go" secureTextEntry="YES"/>
@@ -581,7 +583,7 @@
                         <barButtonItem systemItem="add" id="cvk-HY-9Js"/>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Dkc-41-RId"/>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="尚未擁有儲存空間" id="5lW-IG-giw">
+                    <navigationItem key="navigationItem" title="尚未擁有或尚未選擇儲存空間" id="5lW-IG-giw">
                         <barButtonItem key="leftBarButtonItem" image="Ｍenu" id="0NH-PK-CPY">
                             <connections>
                                 <action selector="showSideMenu" destination="2zK-aF-Ik1" id="6ka-Mr-1qx"/>

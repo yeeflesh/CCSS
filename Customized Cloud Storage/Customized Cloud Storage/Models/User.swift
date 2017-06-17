@@ -151,14 +151,26 @@ public class User: NSObject, NSCoding{
                 return
             }
             //print("response: \(reponse)")
-            
-            //get authorization from main server
-            self.getClientServerList(){getClientServerListStatus in}
+            let responseData = response?["data"] as? [String: Any]
+            //print("getClientServerList response: \(String(describing: response?["data"]))")
+            let clientServerListData = responseData?["clientServerList"] as? [[String: Any]]
+            for clientServerData in clientServerListData!{
+                let name = (clientServerData["name"] as? String)!
+                let host = (clientServerData["host"] as? String)!
+                let id = (clientServerData["_id"] as? String)!
+                let clientServer = ClientServer(name: name, host: host, id: id)
+                
+                self._clientServerList.append(clientServer)
+                //print("clentServerList.count: \(String(describing: self._clientServerList.count))\nclientServerList: \(String(describing: self._clientServerList[0].name))")
+            }
             
             //print("login response: \(String(describing: response?["error"] as? Bool))")
             success(!error)
             //success(!(response?["error"] as? Bool)!)
         }
+        
+        //get authorization from main server
+        self.getClientServerList(){getClientServerListStatus in}
     }
     
     private func httpRqeust(url: String, paramsJSONFormat: [String: Any], completion: @escaping ([String: Any]?) -> ()){

@@ -57,7 +57,7 @@ class DashBoardTableViewController: UITableViewController {
             
             //set page titile
             DispatchQueue.main.async {
-                self.navigationItem.title = ((user?.clientServerList.count)! > 0) ? user?.clientServerList[self.currentClientServer].name : "尚未擁有儲存空間"
+                self.navigationItem.title = ((user?.clientServerList.count)! > 0) ? user?.clientServerList[self.currentClientServer].name : "尚未擁有或尚未選擇儲存空間"
             }
             
             for clientServer in (user?.clientServerList)!{
