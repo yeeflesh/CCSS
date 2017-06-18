@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public class ClientServer: NSObject, NSCoding{
     private var _id: String? = nil
@@ -89,6 +90,82 @@ public class ClientServer: NSObject, NSCoding{
             success(true)
         }
 
+    }
+    
+    public func uploadFile(image: UIImage, filename: String, success: @escaping (Bool) -> ()){
+        //set url
+        let baseUrl = "http://" + _host + ":3000"
+        let url = baseUrl + "/file/uploadFiles"
+        
+        //set parameter with json
+        let params: [String: Any] = ["token": _token ?? "", "optimize": true]
+        
+        httpUploadImage(url: url, params: params, image: image, filename: filename){response in
+            guard response != nil else{
+                success(false)
+                return
+            }
+            
+            //print("getClientServerList response: \(String(describing: response?["data"]))")
+            let message = response?["message"] as? String
+            //print("clientServerList: \(String(describing: clientServerList))")
+            
+            success(message == "Upload File Success!")
+        }
+
+    }
+    
+    private func createBody(parameters: [String: Any], boundary: String, data: Data, mimeType: String, filename: String) -> Data {
+        let body = NSMutableData()
+        
+        let boundaryPrefix = "--\(boundary)\r\n"
+        
+        for (key, value) in parameters {
+            body.appendString(boundaryPrefix)
+            body.appendString("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+            body.appendString("\(value)\r\n")
+        }
+        
+        body.appendString(boundaryPrefix)
+        body.appendString("Content-Disposition: form-data; name=\"files\"; filename=\"\(filename)\"\r\n")
+        body.appendString("Content-Type: \(mimeType)\r\n\r\n")
+        body.append(data)
+        body.appendString("\r\n")
+        body.appendString("--".appending(boundary.appending("--")))
+        
+        return body as Data
+    }
+    
+    private func httpUploadImage(url: String, params: [String: Any], image:UIImage, filename: String, completion: @escaping ([String: Any]?) -> ()){
+        let url = URL(string: url)!
+        //set http request
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        let boundary = "Boundary-\(UUID().uuidString)"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.httpBody = createBody(parameters: params, boundary: boundary, data: UIImageJPEGRepresentation(image, 1.0)!, mimeType: "image/jpg", filename: filename)
+        
+        //set time out
+        URLSessionConfiguration.default.timeoutIntervalForRequest = 10
+        
+        let task = URLSession.shared.dataTask(with: request) {data, response, error in
+            guard let data = data, error == nil else{
+                print("upload error = \(String(describing: error))")
+                completion(nil)
+                return
+            }
+            
+            guard let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode == 200 else{
+                print("response = \(String(describing: response))")
+                completion(nil)
+                return
+            }
+            
+            let dataJSON = try! JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            //print("http response: \(String(describing: dataJSON))")
+            completion(dataJSON!)
+        }
+        task.resume()
     }
     
     private func httpRqeust(url: String, paramsJSONFormat: [String: Any], completion: @escaping ([String: Any]?) -> ()){

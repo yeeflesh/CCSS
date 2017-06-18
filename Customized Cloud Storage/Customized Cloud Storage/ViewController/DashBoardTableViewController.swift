@@ -8,9 +8,10 @@
 
 import UIKit
 import SideMenu
+import Photos
 
-class DashBoardTableViewController: UITableViewController {
-    @IBOutlet weak var MenuBarButton: UIBarButtonItem!
+class DashBoardTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    let imagePicker = UIImagePickerController()
     
     var user: User? = nil
     var currentClientServer = 0
@@ -82,6 +83,87 @@ class DashBoardTableViewController: UITableViewController {
     
     @IBAction internal func showSideMenu(){
         present(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
+    }
+    
+    @IBAction internal func showImagePicker(_ sender: UIBarButtonItem){
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        //imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        imagePicker.delegate = self
+        imagePicker.modalPresentationStyle = .popover
+        imagePicker.popoverPresentationController?.delegate = self
+        imagePicker.popoverPresentationController?.barButtonItem = sender
+        imagePicker.popoverPresentationController?.permittedArrowDirections = .any
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
+    
+    internal func imagePickerAlert(chosenImage: UIImage, filename: String){
+        let imagePickerAlerttController = UIAlertController(title: "通知", message: "確定要上傳 ?", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        imagePickerAlerttController.addAction(cancelAction)
+        let uploadFileAction = UIAlertAction(title: "上傳", style: .default, handler: {(action: UIAlertAction!) -> () in
+            self.dismiss(animated: true, completion: nil)
+            self.uploadFile(chosenImage: chosenImage, filename: filename)
+        })
+        imagePickerAlerttController.addAction(uploadFileAction)
+        
+        imagePicker.present(imagePickerAlerttController, animated: true, completion: nil)
+    }
+    
+    internal func uploadFile(chosenImage: UIImage, filename: String){
+        let currentUser = user
+        currentUser?.clientServerList[currentClientServer].uploadFile(image: chosenImage, filename: filename){uploadFileStauts in
+            guard uploadFileStauts else{
+                DispatchQueue.main.async {
+                    self.view.makeToast("上傳失敗", duration: 3, position: .center, title: " ", image: UIImage(named: "Delete"), style: nil, completion:nil)
+                }
+                return
+            }
+            
+            //update dash board
+            currentUser?.clientServerList[self.currentClientServer].getFiles(){getFilesStatus in
+                print("UI dashBoard -> user getClientServerList -> getFiles Status: \(getFilesStatus)")
+                guard getFilesStatus else{
+                    DispatchQueue.main.async {
+                        self.view.makeToast("資料更新失敗，請重試！", duration: 3, position: .center, title: " ", image: UIImage(named: "Delete"), style: nil, completion:nil)
+                    }
+                    return
+                }
+                
+                //save user data in system
+                let encodeUserData = NSKeyedArchiver.archivedData(withRootObject: currentUser!)
+                UserDefaults.standard.setValue(encodeUserData, forKey: "userData")
+                UserDefaults.standard.synchronize()
+                
+                self.user = currentUser
+                
+                DispatchQueue.main.async {
+                    self.view.makeToast("上傳成功", duration: 3, position: .center, title: " ", image: UIImage(named: "Checkmark"), style: nil, completion:nil)
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        var filename: String = "filename"
+        if let imageURL = info[UIImagePickerControllerReferenceURL] as? URL {
+            let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
+            let asset = result.firstObject
+            filename = asset?.value(forKey: "filename") as! String
+        }
+        
+        imagePickerAlert(chosenImage: chosenImage, filename: filename)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {

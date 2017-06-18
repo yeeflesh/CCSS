@@ -87,7 +87,6 @@ class SideMenuTableViewController: UITableViewController {
             }
             
             DispatchQueue.main.sync {
-                //save user data in system
                 self.tableView.reloadData()
             }
         }
