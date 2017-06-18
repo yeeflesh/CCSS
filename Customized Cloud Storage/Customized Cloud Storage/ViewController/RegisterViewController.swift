@@ -32,10 +32,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         registerButton.layer.cornerRadius = 5
         
         //hard code account(email, password) in login, help debug easier
-        nameTextField.text = "registerTest"
-        emailTextField.text = "registerTest@gmail.com"
-        passwordTextField.text = "test"
-        passwordConfirmTextField.text = "test"
+//        nameTextField.text = "registerTest"
+//        emailTextField.text = "registerTest@gmail.com"
+//        passwordTextField.text = "test"
+//        passwordConfirmTextField.text = "test"
     }
     
     //TextField keyboard disappear when user click "return"

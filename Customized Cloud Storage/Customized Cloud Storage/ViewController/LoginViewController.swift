@@ -24,8 +24,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         loginButton.layer.cornerRadius = 5
         
         //hard code account(email, password) in login, help debug easier
-        emailTextField.text = "test@gmail.com"
-        passwordTextField.text = "test"
+//        emailTextField.text = "test@gmail.com"
+//        passwordTextField.text = "test"
     }
     
     //TextField keyboard disappear when user click "return"
