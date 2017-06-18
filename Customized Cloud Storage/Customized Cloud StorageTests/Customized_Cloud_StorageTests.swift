@@ -49,19 +49,19 @@ class UserTests: XCTestCase {
         }
     }
     
-    func test_register_success(){
-        //XCTAssert(false)
-        
-        //set different email
-        let emailNum = 4
-        let email = "register\(emailNum)@gmail.com"
-        user = User(name: "registerTest", email: email, password: "test")
-        
-        user?.register(){ registerStatus in
-            //print("registerStatus_fail_registerStatus: \(registerStatusStatus.description)")
-            XCTAssertEqual(true, registerStatus)
-        }
-    }
+//    func test_register_success(){
+//        //XCTAssert(false)
+//        
+//        //set different email
+//        let emailNum = 4
+//        let email = "register\(emailNum)@gmail.com"
+//        user = User(name: "registerTest", email: email, password: "test")
+//        
+//        user?.register(){ registerStatus in
+//            //print("registerStatus_fail_registerStatus: \(registerStatusStatus.description)")
+//            XCTAssertEqual(true, registerStatus)
+//        }
+//    }
     
     func test_register_fail(){
         //XCTAssert(false)

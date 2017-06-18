@@ -21,6 +21,11 @@ class SideMenuTableViewController: UITableViewController {
         self.tableView.dataSource = self
     }
     
+    //TextField keyboard disappear when user tap other side on screen
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         //get user data from system store
         let userData = UserDefaults.standard.data(forKey: "userData")

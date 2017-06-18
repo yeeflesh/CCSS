@@ -24,6 +24,11 @@ class DashBoardTableViewController: UITableViewController, UIPopoverPresentation
         self.tableView.dataSource = self
     }
     
+    //TextField keyboard disappear when user tap other side on screen
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         //get login status from system
         let loginStatus = UserDefaults.standard.bool(forKey: "loginStatus")
