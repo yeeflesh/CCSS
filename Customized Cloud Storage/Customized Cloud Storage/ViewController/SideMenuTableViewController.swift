@@ -86,13 +86,16 @@ class SideMenuTableViewController: UITableViewController {
             
             self.user = currentUser
             
-            DispatchQueue.main.async {
-                self.view.makeToast("新增成功", duration: 3, position: .center, title: " ", image: UIImage(named: "Checkmark"), style: nil, completion:nil)
-                //self.tableView.reloadData()
-            }
-            
             DispatchQueue.main.sync {
+                //reload table view
                 self.tableView.reloadData()
+                //dismiss side menu
+                self.dismiss(animated: false, completion: nil)
+                //let app to the initial state
+                let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                let dashBoardView: UINavigationController = storyboard.instantiateViewController(withIdentifier: "initialRootView") as! UINavigationController
+                UIApplication.shared.keyWindow?.rootViewController = dashBoardView
+                dashBoardView.view.makeToast("新增成功", duration: 3, position: .center, title: " ", image: UIImage(named: "Checkmark"), style: nil, completion:nil)
             }
         }
     }
